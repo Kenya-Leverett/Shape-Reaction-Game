@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Reactions Game</title>
+<style>
+#box1 {
+    height:200px;
+    width:200px;
+    background-color:black;
+    display:none;
+    position:relative;
+    }
+#contents{
+    width:700px;
+    margin:auto;
+    border:1px black solid;
+    text-align:center;
+    }
+
+</style></head><body>
+<div id="contents">
+    Directions: Click on the shapes as quickly as possible.<br>
+
+    <br><button id="start">Begin!</button>
+    <p>Your score: <b><span id="speed"></span></b></p>
+    <p><span id="highScore">High Score: </span></p>
+</div>
+<div id="box1"></div>
+
+
+<script>
+var createdTime; var clickedTime; var reactionTime; var lowestTime;
+lowestTime=2.50;
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i= 0; i< 6; i++) {
+        color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+}
+
+function randombox() {
+    var time=Math.random();
+    time=time*3000;
+    setTimeout(function() {
+        if(Math.random()>0.5) {
+            document.getElementById("box1").style.borderRadius="100px";
+        } else {
+            document.getElementById("box1").style.borderRadius="0";
+        }
+        var top=Math.random();
+        top=top*300;
+        var left=Math.random();
+        left=left*500;
+        document.getElementById("box1").style.top=top+"px";
+        document.getElementById("box1").style.left=left+"px";
+        document.getElementById("box1").style.backgroundColor=getRandomColor();
+        document.getElementById("box1").style.display="block";
+        }, time); createdTime=Date.now();
+}
+
+document.getElementById("start").onclick=function() {
+    randombox();
+}
+
+document.getElementById("box1").onclick=function() {
+    clickedTime=Date.now();
+    this.style.display="none";
+        reactionTime=(clickedTime-createdTime)/1000;
+        if (document.getElementById("box1").style.display="none"){
+            document.getElementById("speed").innerHTML="you took "+reactionTime+" seconds";
+                if (reactionTime < lowestTime) {
+                    lowestTime=reactionTime;
+                    document.getElementById("highScore").innerHTML="You beat the high score!<br> <b>New High Score= "+lowestTime+"!</b>";
+                }
+            randombox();
+        }
+}
+
+
+</script></html></body>
