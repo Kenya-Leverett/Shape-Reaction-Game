@@ -75,7 +75,8 @@ document.getElementById("box1").onclick=function() {
             document.getElementById("speed").innerHTML="you took "+reactionTime+" seconds";
                 if (reactionTime < lowestTime) {
                     lowestTime=reactionTime;
-                    document.getElementById("highScore").innerHTML="You beat the high score!<br> <b>New High Score= "+lowestTime+"!</b>";
+                    document.getElementById("highScore").innerHTML="You beat the high score!<br>
+                    <b>New High Score= "+lowestTime+"!</b>";
                 }
             randombox();
         }
